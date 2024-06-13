@@ -1,12 +1,17 @@
-
-import './App.css'
-
+import {BrowserRouter as Router,Route,Routes} from "react-router-dom"
+import EditPage from "./pages/EditPage"
+import ListPage from "./pages/ListPage"
+import RequireAuth from "./components/RequireAuth"
 function App() {
   return (
-    <div>
-      <h3>APP</h3>
-      <span className='iconfont'>&#xeac5;</span>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<RequireAuth/>}>
+          <Route index element={<EditPage />}></Route>
+          <Route path="list" element={<ListPage />}></Route>
+        </Route>
+      </Routes>
+    </Router>
   )
 }
 
