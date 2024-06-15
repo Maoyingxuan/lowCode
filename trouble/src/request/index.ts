@@ -1,7 +1,7 @@
 import axios from "axios";
 import docCookies from "../utils/cookies";
-// export const end = "//www.bubucuo.cn";
-export const end = "http://template.codebus.tech"; //"//template.josephxia.com";
+export const end = "//www.bubucuo.cn";
+// export const end = "http://template.codebus.tech"; //"//template.josephxia.com";
 
 export function common(
   res: any,
