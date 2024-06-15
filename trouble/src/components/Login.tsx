@@ -15,14 +15,14 @@ export default function Login(){
           <Button
         style={{float: "right", marginTop: 16}}
         onClick={() => {
-          logout(() => {
+          logout(() => { handleOk()
           });
         }}>
         {name} 退出登录
       </Button>
         )
     }
-    // 未登陆
+    // 未登陆·
     const onFinish = ({
         name,
         password,
@@ -33,7 +33,7 @@ export default function Login(){
         register_login: boolean;
       }) => {
         console.log("Success:", {name, password, register_login});
-    
+  
         if (register_login) {
           registerAndLogin({name, password});
         } else {

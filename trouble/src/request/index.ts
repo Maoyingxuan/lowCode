@@ -1,7 +1,7 @@
 import axios from "axios";
 import docCookies from "../utils/cookies";
-export const end = "//www.bubucuo.cn";
-// export const end = "//template.josephxia.com"; //"//template.josephxia.com";
+// export const end = "//www.bubucuo.cn";
+export const end = "http://template.codebus.tech"; //"//template.josephxia.com";
 
 export function common(
   res: any,
@@ -9,7 +9,7 @@ export function common(
   failedCallback?: Function
 ) {
   if (res.status === 200) {
-    const code = res.data.code;
+    let code = res.data.code;
     if (code === 200) {
       successCallback(res.data.result);
     } else if (code === 401) {
