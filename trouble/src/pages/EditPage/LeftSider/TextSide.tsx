@@ -1,4 +1,4 @@
-import useEditStore from "../../../store/editStore";
+import {addCmp} from "../../../store/editStore";
 import {defaultComponentStyle} from "../../../utils/const";
 import leftSideStyles from "./leftSide.module.less";
 import { isTextComponent } from ".";
@@ -34,12 +34,13 @@ const settings = [
 ];
 
 const TextSide=memo( ()=> {
-  const {addCmp} = useEditStore(
-    (state) => state,
-    () => {
-      return true;
-    }
-  )
+  // 优化，添加组件时不更新textside
+  // const {addCmp} = useEditStore(
+  //   (state) => state,
+  //   () => {
+  //     return true;
+  //   }
+  // )
   return (
     <div className={leftSideStyles.main}>
       <ul className={leftSideStyles.box}>

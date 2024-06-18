@@ -1,9 +1,11 @@
 // import {_Style} from "src/store/editStoreTypes";
+import {addCmp} from "../../../../store/editStore";
 import useEditStore from "../../../../store/editStore";
 import styles from "./index.module.less";
 import Cmp from "../Cmp";
+
 export default function Canvas() {
-    const {canvas,addCmp} = useEditStore()
+    const {canvas} = useEditStore((state)=>state)
     const {cmps,style} = canvas;
     const onDrop=(e:any)=>{
       // 读取被拖拽组件信息
