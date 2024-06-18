@@ -5,6 +5,7 @@ import styles from "./index.module.less";
 import Cmp from "../Cmp";
 
 export default function Canvas() {
+    console.log("canvas render")
     const {canvas} = useEditStore((state)=>state)
     const {cmps,style} = canvas;
     const onDrop=(e:any)=>{
@@ -22,7 +23,7 @@ export default function Canvas() {
       dragCmp.style.left = disX - dragCmp.style.width / 2;
       dragCmp.style.top = disY - dragCmp.style.height / 2;
       // 添加组件存入state store
-      console.log("1")
+      // console.log("1")
       addCmp(dragCmp)
     }
     const allowDraop = (e:any) => {

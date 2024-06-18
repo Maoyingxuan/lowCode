@@ -33,7 +33,8 @@ const settings = [
   },
 ];
 
-const TextSide=memo( ()=> {
+const TextSider=memo( ()=> {
+  console.log("TextSider")
   // 优化，添加组件时不更新textside
   // const {addCmp} = useEditStore(
   //   (state) => state,
@@ -65,4 +66,4 @@ const TextSide=memo( ()=> {
   );
 }
 )
-export default TextSide
+export default TextSider
