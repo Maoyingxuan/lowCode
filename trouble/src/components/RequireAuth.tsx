@@ -1,8 +1,10 @@
-import {Layout} from "antd"
+import {Layout,Spin} from "antd"
 import Login from './Login'
 import {Outlet} from "react-router-dom"
+import useGlobalStore from "../store/globalStore"
 const {Header} = Layout
 export default function RequireAuth(){
+    const loading = useGlobalStore((state)=>state.loading)
     const headerStyle: React.CSSProperties = {
         textAlign: "center",
         color: "#fff",
@@ -13,10 +15,15 @@ export default function RequireAuth(){
       };
     return(
         <Layout>
+         {loading && (
+        <div className="loading">
+          <Spin size="large" />
+        </div>
+      )}
             <Header style={headerStyle}>
                 <Login></Login>
             </Header>
             <Outlet/>
-            </Layout>
+        </Layout>
     )
 }

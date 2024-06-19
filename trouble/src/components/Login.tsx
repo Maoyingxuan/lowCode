@@ -1,26 +1,29 @@
-import docCookies from '../utils/cookies'
 import {Button,Modal,Form,Input,Checkbox} from 'antd'
-import {login,logout} from "../request/user";
-import {register} from "../request/register";
+import {useEffect} from "react";
+import Axios from "../request/axios";
+import {registerEnd} from "../request/end";
+import useGlobalStore from "../store/globalStore";
+import useUserStore, {fetchUserInfo, login, logout} from "../store/userStore";
+
 export default function Login(){
-    const handleOk = () => {
-    window.location.reload();
-  };
     // 校验登陆
-    const auth = docCookies.getItem('sessionId')
-    const name = docCookies.getItem('name')
+    const {isLogin,name} = useUserStore()
+    const loading = useGlobalStore(state=>state.loading)
+    useEffect(() => {
+      fetchUserInfo();
+    }, []);
+  
+    if (loading) {
+      return;
+    }
+  
     // 已登陆
-    if(auth){
-        return (
-          <Button
-        style={{float: "right", marginTop: 16}}
-        onClick={() => {
-          logout(() => { handleOk()
-          });
-        }}>
-        {name} 退出登录
-      </Button>
-        )
+    if (isLogin) {
+      return (
+        <Button style={{float: "right", marginTop: 16}} onClick={logout}>
+          {name}退出登录
+        </Button>
+      );
     }
     // 未登陆·
     const onFinish = ({
@@ -37,22 +40,18 @@ export default function Login(){
         if (register_login) {
           registerAndLogin({name, password});
         } else {
-          login({name, password}, () => {
-            handleOk();
-          });
+          login({name, password})
         }
       };
     
       const onFinishFailed = (errorInfo: any) => {
         console.log("Failed:", errorInfo);
       };
-    
-      const registerAndLogin = (values: {name: string; password: string}) => {
-        register(values, () => {
-          login(values, () => {
-            handleOk();
-          });
-        });
+      const registerAndLogin = async (values: {name: string; password: string}) => {
+        const res = await Axios.post(registerEnd, values);
+        if (res) {
+          login(values);
+        }
       };
     
     return (

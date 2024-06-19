@@ -1,7 +1,10 @@
-import { Button, Card, Divider, Space, Table } from "antd";
+import { Modal,message,Button, Card, Divider, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
-import { getCanvasList,deleteCanvas } from "../../request/list";
+import Axios from "../../request/axios";
+import {deleteCanvasByIdEnd, getCanvasListEnd} from "../../request/end";
+import useUserStore from "../../store/userStore";
+
 interface ListItem {
     id:number;
     type:string; //页面
@@ -10,17 +13,31 @@ interface ListItem {
 }
 export default function ListPage(){
     const [list,setList] = useState([])
-    const fresh=() =>{
-        getCanvasList("", (res: any) => {
-            let data = res.content || [];
-            setList(data);
-            console.log("getdata"+data)
-          });
-    }
+    const isLogin = useUserStore((state)=>state.isLogin)
+    const fresh = async () => {
+      if (!isLogin) {
+        return;
+      }
+      const res: any = await Axios.get(getCanvasListEnd);
+      let data = res?.content || [];
+      setList(data);
+    };
+    const delConfirm = async (id: number) => {
+      Modal.confirm({
+        title: "删除",
+        content: "您确定要删除吗？",
+        onOk: async () => {
+          await Axios.post(deleteCanvasByIdEnd, {id});
+          message.success("删除成功");
+          fresh();
+        },
+      });
+    };
+  
     useEffect(()=>{
         fresh();
         console.log("fresh")
-    },[])
+    },[isLogin])
 
     
     const editUrl =(item:ListItem) => '/?id=$(item.id}&type=$()item.type';
@@ -64,7 +81,7 @@ export default function ListPage(){
                 </a>
     
                 <Link to={editUrl(item)}>编辑</Link>
-                {/* <Button onClick={() => del({id})}>删除</Button> */}
+                <Button onClick={() => delConfirm(id)}>删除</Button>
               </Space>
             );
           },
