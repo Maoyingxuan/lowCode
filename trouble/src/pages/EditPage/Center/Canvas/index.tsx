@@ -1,13 +1,26 @@
 // import {_Style} from "src/store/editStoreTypes";
-import {addCmp} from "../../../../store/editStore";
+import {addCmp,fetchCanvas} from "../../../../store/editStore";
 import useEditStore from "../../../../store/editStore";
 import styles from "./index.module.less";
 import Cmp from "../Cmp";
-
+import { useCanvasId } from "../../../../store/hooks";
+import {useEffect} from "react";
 export default function Canvas() {
     console.log("canvas render")
     const {canvas} = useEditStore((state)=>state)
     const {cmps,style} = canvas;
+    const id = useCanvasId();
+    console.log(
+      "%c [ id ]-12",
+      "font-size:13px; background:pink; color:#bf2c9f;",
+      id
+    );
+    useEffect(() => {
+      if (id) {
+        fetchCanvas(id);
+      }
+    }, []);
+  
     const onDrop=(e:any)=>{
       // 读取被拖拽组件信息
       const dragCmp = JSON.parse(e.dataTransfer.getData("drag-cmp"))
