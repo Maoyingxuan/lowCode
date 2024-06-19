@@ -1,5 +1,5 @@
 // import {_Style} from "src/store/editStoreTypes";
-import {addCmp,fetchCanvas} from "../../../../store/editStore";
+import {addCmp,clearCanvas,fetchCanvas} from "../../../../store/editStore";
 import useEditStore from "../../../../store/editStore";
 import styles from "./index.module.less";
 import Cmp from "../Cmp";
@@ -18,6 +18,8 @@ export default function Canvas() {
     useEffect(() => {
       if (id) {
         fetchCanvas(id);
+      }else{
+        clearCanvas()
       }
     }, []);
   

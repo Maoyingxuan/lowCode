@@ -2,7 +2,7 @@ import classNames from "classnames";
 import {Link, useNavigate} from "react-router-dom";
 import styles from "./index.module.less";
 import {useCanvasId, useCanvasType} from "../../../store/hooks";
-import {saveCanvas} from "../../..//store/editStore";
+import {clearCanvas, saveCanvas} from "../../..//store/editStore";
 import {message} from "antd";
 
 export default function Header() {
@@ -35,7 +35,9 @@ export default function Header() {
     });
   };
 
-  const emptyCanvas = () => {};
+  const emptyCanvas = () => {
+    clearCanvas()
+  };
 
   console.log("header render"); //sy-log
   return (

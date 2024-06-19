@@ -47,7 +47,13 @@ const useEditStore = create(
     }
   };
   export default useEditStore;
-
+  // 清空画布
+  export const clearCanvas = () => {
+    useEditStore.setState((draft) => {
+      draft.canvas = getDefaultCanvas();
+    });
+  };
+  
   function getDefaultCanvas(): ICanvas {
     return {
       title: "未命名",
