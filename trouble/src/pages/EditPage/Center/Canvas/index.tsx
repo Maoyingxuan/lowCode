@@ -7,7 +7,10 @@ import { useCanvasId } from "../../../../store/hooks";
 import {useEffect} from "react";
 export default function Canvas() {
     console.log("canvas render")
-    const {canvas} = useEditStore((state)=>state)
+    const [canvas, assembly] = useEditStore((state) => [
+      state.canvas,
+      state.assembly,
+    ]);
     const {cmps,style} = canvas;
     const id = useCanvasId();
     console.log(
@@ -52,7 +55,7 @@ export default function Canvas() {
       onDrop={onDrop}
       onDragOver={allowDraop}>
               {cmps.map((item, index) => (
-        <Cmp key={item.key} cmp={item} index={index}></Cmp>
+        <Cmp key={item.key} cmp={item} index={index} isSelected={assembly.has(index)}></Cmp>
       ))}
       </div>
   );

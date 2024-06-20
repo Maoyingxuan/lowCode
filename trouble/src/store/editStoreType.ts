@@ -20,6 +20,7 @@ export interface ICanvas {
   
   export type EditStoreState = {
     canvas: ICanvas;
+    assembly: Set<number>;
   };
   
   export type AddCmpFC = (_cmp: ICmp) => void;
