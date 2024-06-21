@@ -5,12 +5,13 @@ import {Text,Img} from "./CmpDetail";
 import classNames from "classnames";
 import {pick,omit} from "lodash"
 import { setCmpSelected,setCmpsSelected,setAllCmpsSelected } from "../../../../store/editStore";
+import { memo } from "react";
 interface ICmpProps {
   cmp:ICmpWithKey,
   index:number
   isSelected:boolean
 }
-export default function Cmp(props:ICmpProps){
+const Cmp =memo((props:ICmpProps)=>{
     const {cmp, index,isSelected} = props;
     const {style} = cmp;
     const outerStyle = pick(style, [
@@ -47,4 +48,5 @@ export default function Cmp(props:ICmpProps){
           </div>
         </div>
       );
-}
+})
+export default Cmp
