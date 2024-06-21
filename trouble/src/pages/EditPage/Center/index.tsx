@@ -8,10 +8,20 @@ export default function Center() {
       id="center"
       className={styles.main}
       tabIndex={0}
-      onClick={(e) => {
+      onClick={(e) => { //  取消选中
         if(e.target.id === 'center')
         setCmpSelected(-1);
-      }}>
+      }}
+      onKeyDown={(e)=>{ //全选
+        if(e.metaKey) 
+          {
+            switch(e.code){
+              case 'KeyA':
+                setAllCmpsSelected()
+            }
+          }
+      }}
+      >
       <Canvas />
     </div>
   );
