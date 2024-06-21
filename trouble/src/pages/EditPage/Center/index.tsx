@@ -9,7 +9,7 @@ export default function Center() {
       className={styles.main}
       tabIndex={0}
       onClick={(e) => { //  取消选中
-        if(e.target.id === 'center')
+        if(e.target?.id === 'center')
         setCmpSelected(-1);
       }}
       onKeyDown={(e)=>{ //全选

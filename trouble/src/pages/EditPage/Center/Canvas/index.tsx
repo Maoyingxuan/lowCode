@@ -5,6 +5,7 @@ import styles from "./index.module.less";
 import Cmp from "../Cmp";
 import { useCanvasId } from "../../../../store/hooks";
 import {useEffect} from "react";
+import EditBox from "../EditBox";
 export default function Canvas() {
     console.log("canvas render")
     const [canvas, assembly] = useEditStore((state) => [
@@ -54,6 +55,7 @@ export default function Canvas() {
       style={{width: 320, height: 568}}
       onDrop={onDrop}
       onDragOver={allowDraop}>
+        <EditBox></EditBox>
               {cmps.map((item, index) => (
         <Cmp key={item.key} cmp={item} index={index} isSelected={assembly.has(index)}></Cmp>
       ))}
