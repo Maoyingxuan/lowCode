@@ -4,7 +4,7 @@ import {isImgComponent, isTextComponent} from "../../LeftSider";
 import {Text,Img} from "./CmpDetail";
 import classNames from "classnames";
 import {pick,omit} from "lodash"
-import { setCmpSelected } from "../../../../store/editStore";
+import { setCmpSelected,setCmpsSelected,setAllCmpsSelected } from "../../../../store/editStore";
 interface ICmpProps {
   cmp:ICmpWithKey,
   index:number
@@ -28,8 +28,13 @@ export default function Cmp(props:ICmpProps){
       "height",
     ])
     const setSelected = (e)=>{
-      setCmpSelected(index)
+      if(e.metaKey){
+        setCmpsSelected([index]);
+    } else {
+      setCmpSelected(index);
+      }
     }
+    console.log("cmp render")
     return (
         <div 
         className={classNames(styles.main, isSelected&&"selectedBorder")} style={outerStyle}
