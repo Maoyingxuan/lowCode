@@ -20,6 +20,7 @@ const useEditStore = create(
   export const addCmp=(_cmp: ICmp)=>{
     useEditStore.setState((draft) => {
       draft.canvas.cmps.push({..._cmp, key: getOnlyKey()});
+      draft.assembly = new Set([draft.canvas.cmps.length - 1])
     });
   }
   export const saveCanvas = async (
