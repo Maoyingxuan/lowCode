@@ -1,6 +1,6 @@
 import axios from "./axios";
-export const end = "//www.bubucuo.cn";
-// export const end = "http://trouble.codebus.tech/"; 
+// export const end = "//www.bubucuo.cn";
+export const end = "http://trouble.codebus.tech/"; 
 
 // 注册 post
 export const registerEnd = end + "/api/register";

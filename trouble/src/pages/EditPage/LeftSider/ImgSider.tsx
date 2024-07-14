@@ -7,7 +7,7 @@ const defaultStyle = {
   ...defaultComponentStyle,
 };
 
-const url = "https://www.bubucuo.cn/";
+const url = "http://trouble.codebus.tech/";
 
 const settings = [
   {

@@ -1,12 +1,35 @@
-import useEditStore from "../../../../store/editStore";
+import useEditStore,{updateAssemblyCmpsByDistance} from "../../../../store/editStore";
 import styles from "./index.module.less";
-
+import {throttle} from "lodash"
 export default function EditBox() {
   const [cmps, assembly] = useEditStore((state) => [
     state.canvas.cmps,
     state.assembly,
   ]);
+  const onMouseDownOfCmp =(e:any) =>{
+    let startX = e.pageX;
+    let startY = e.pageY;
+  
+  const move = throttle((e:any)=>{
+    const x = e.pageX;
+    const y = e.pageY;
 
+    let disX = x - startX;
+    let disY = y - startY;
+
+    updateAssemblyCmpsByDistance({top: disY, left: disX});
+
+    startX = x;
+    startY = y;
+  },50)
+  const up = () => {
+    document.removeEventListener("mousemove", move);
+    document.removeEventListener("mouseup", up);
+  };
+
+  document.addEventListener("mousemove", move);
+  document.addEventListener("mouseup", up);
+}
   const size = assembly.size;
   if (size === 0) {
     return null;
@@ -41,6 +64,7 @@ export default function EditBox() {
         left,
         width,
         height,
-      }}></div>
+      }}
+      onMouseDown={onMouseDownOfCmp}></div>
   );
 }

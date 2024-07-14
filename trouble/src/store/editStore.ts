@@ -1,7 +1,7 @@
 import {create} from "zustand"
 import {immer} from 'zustand/middleware/immer'
 import {getOnlyKey} from '../utils'
-import { EditStoreState ,EditStoreAction,ICanvas,ICmp} from "./editStoreType"
+import { EditStoreState ,EditStoreAction,ICanvas,ICmp,Style} from "./editStoreType"
 import Axios from "../request/axios"
 import {getCanvasByIdEnd, saveCanvasEnd} from "../request/end";
 import {enableMapSet} from "immer"
@@ -115,4 +115,15 @@ export const setCmpSelected = (index: number) => {
       cmps: [],
     };
   }
+  
+  export const updateAssemblyCmpsByDistance = (newStyle: Style) => {
+    useEditStore.setState((draft) => {
+      draft.assembly.forEach((index) => {
+        const cmp = draft.canvas.cmps[index];
+        for (const key in newStyle) {
+          cmp.style[key] += newStyle[key];
+        }
+      });
+    });
+  };
   
