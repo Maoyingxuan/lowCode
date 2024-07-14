@@ -1,7 +1,9 @@
 import useEditStore,{updateAssemblyCmpsByDistance} from "../../../../store/editStore";
 import styles from "./index.module.less";
 import {throttle} from "lodash"
+import useZoomStore from "../../../../store/zoomStore";
 export default function EditBox() {
+  const zoom = useZoomStore((state) => state.zoom);
   const [cmps, assembly] = useEditStore((state) => [
     state.canvas.cmps,
     state.assembly,
@@ -16,6 +18,9 @@ export default function EditBox() {
 
     let disX = x - startX;
     let disY = y - startY;
+
+    disX = disX * (100 / zoom);
+    disY = disY * (100 / zoom);
 
     updateAssemblyCmpsByDistance({top: disY, left: disX});
 

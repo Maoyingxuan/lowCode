@@ -5,6 +5,7 @@ import { EditStoreState ,EditStoreAction,ICanvas,ICmp,Style} from "./editStoreTy
 import Axios from "../request/axios"
 import {getCanvasByIdEnd, saveCanvasEnd} from "../request/end";
 import {enableMapSet} from "immer"
+import {resetZoom} from "./zoomStore"
 enableMapSet()
 const useEditStore = create(
     immer<EditStoreState & EditStoreAction>(() => ({
@@ -46,7 +47,9 @@ const useEditStore = create(
       useEditStore.setState((draft) => {
         draft.canvas = JSON.parse(res.content);
         draft.canvas.title = res.title;
+        draft.assembly.clear()
       });
+      resetZoom()
     }
   };
   export default useEditStore;
@@ -56,6 +59,7 @@ const useEditStore = create(
       draft.canvas = getDefaultCanvas();
       draft.assembly.clear()
     });
+    resetZoom()
   };
   // 选中组件
   // 全部选中

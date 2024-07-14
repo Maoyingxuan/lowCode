@@ -14,7 +14,7 @@ export default function Login(){
     }, []);
   
     if (loading) {
-      return;
+      return null;
     }
   
     // 已登陆

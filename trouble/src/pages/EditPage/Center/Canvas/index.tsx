@@ -6,8 +6,10 @@ import Cmp from "../Cmp";
 import { useCanvasId } from "../../../../store/hooks";
 import {useEffect} from "react";
 import EditBox from "../EditBox";
+import useZoomStore from "../../../../store/zoomStore";
 export default function Canvas() {
     console.log("canvas render")
+    const zoom = useZoomStore(state=>state.zoom)
     const [canvas, assembly] = useEditStore((state) => [
       state.canvas,
       state.assembly,
@@ -35,7 +37,7 @@ export default function Canvas() {
       const endY = e.pageY
       const canvasDomPos={
         top:114,
-        left: (document.body.clientWidth - Number(style.width)) / 2,
+        left: document.body.clientWidth / 2 - (style.width / 2) * (zoom / 100),
       }
       let disX = endX-canvasDomPos.left
       let disY = endY-canvasDomPos.top
@@ -52,7 +54,9 @@ export default function Canvas() {
     <div
       id="canvas"
       className={styles.main}
-      style={{width: 320, height: 568}}
+      style={{...canvas.style,
+        transform:`scale(${zoom/100})`
+      }}
       onDrop={onDrop}
       onDragOver={allowDraop}>
         <EditBox></EditBox>
