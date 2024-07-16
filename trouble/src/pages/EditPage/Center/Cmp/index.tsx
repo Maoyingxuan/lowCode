@@ -15,7 +15,8 @@ const Cmp = memo((props: ICmpProps) => {
   const {cmp, index, isSelected} = props;
   const {style} = cmp;
 
-  const setSelected = (e:any) => {
+  const setSelected = (e:React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
     if (e.metaKey) {
       setCmpsSelected([index]);
     } else {
@@ -32,6 +33,7 @@ const Cmp = memo((props: ICmpProps) => {
   ]);
 
   const innerStyle = omit(style, "position", "top", "left");
+  const transform = `rotate(${style.transform}deg)`;
 
   console.log("cmp render"); //sy-log
 
