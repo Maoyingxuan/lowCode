@@ -11,42 +11,41 @@ interface ICmpProps {
   index:number
   isSelected:boolean
 }
-const Cmp =memo((props:ICmpProps)=>{
-    const {cmp, index,isSelected} = props;
-    const {style} = cmp;
-    const outerStyle = pick(style, [
-      "position",
-      "top",
-      "left",
-      "width",
-      "height",
-    ]);
-    const innerStyle = omit(style,[
-      "position",
-      "top",
-      "left",
-      "width",
-      "height",
-    ])
-    const setSelected = (e)=>{
-      if(e.metaKey){
-        setCmpsSelected([index]);
+const Cmp = memo((props: ICmpProps) => {
+  const {cmp, index, isSelected} = props;
+  const {style} = cmp;
+
+  const setSelected = (e:any) => {
+    if (e.metaKey) {
+      setCmpsSelected([index]);
     } else {
       setCmpSelected(index);
-      }
     }
-    console.log("cmp render")
-    return (
-        <div 
-        className={classNames(styles.main, isSelected&&"selectedBorder")} style={outerStyle}
-        onClick={setSelected}>
-          <div className={styles.inner} style={{...innerStyle,zIndex:index}}>
+  };
 
-          
-          {cmp.type === isTextComponent && <Text {...cmp} />}
-          {cmp.type === isImgComponent && <Img {...cmp} />}
-          </div>
-        </div>
-      );
-})
-export default Cmp
+  const outerStyle = pick(style, [
+    "position",
+    "top",
+    "left",
+    "width",
+    "height",
+  ]);
+
+  const innerStyle = omit(style, "position", "top", "left");
+
+  console.log("cmp render"); //sy-log
+
+  return (
+    <div
+      className={classNames(styles.main, isSelected && "selectedBorder")}
+      style={outerStyle}
+      onClick={setSelected}>
+      <div className={styles.inner} style={{...innerStyle, zIndex: index}}>
+        {cmp.type === isTextComponent && <Text {...cmp} />}
+        {cmp.type === isImgComponent && <Img {...cmp} />}
+      </div>
+    </div>
+  );
+});
+
+export default Cmp;
