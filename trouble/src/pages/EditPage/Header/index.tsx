@@ -4,7 +4,7 @@ import styles from "./index.module.less";
 import {useCanvasId, useCanvasType} from "../../../store/hooks";
 import {clearCanvas, saveCanvas} from "../../..//store/editStore";
 import {message} from "antd";
-
+import { goNextCanvasHistory,goPrevCanvasHistory } from "../../../store/historySlice";
 export default function Header() {
   const id = useCanvasId();
   const type = useCanvasType();
@@ -60,7 +60,7 @@ export default function Header() {
         <span className={styles.txt}>保存并预览</span>
       </div>
 
-      <div className={classNames(styles.item)}>
+      <div className={classNames(styles.item)} onClick={goPrevCanvasHistory}>
         <span
           className={classNames(
             "iconfont icon-chexiaofanhuichehuishangyibu",
@@ -70,7 +70,7 @@ export default function Header() {
         <span className={styles.shortKey}>CMD+Z</span>
       </div>
 
-      <div className={classNames(styles.item)}>
+      <div className={classNames(styles.item)} onClick={goNextCanvasHistory}>
         <span
           className={classNames(
             "iconfont icon-chexiaofanhuichehuishangyibu",
