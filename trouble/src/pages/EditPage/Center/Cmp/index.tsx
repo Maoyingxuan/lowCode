@@ -4,7 +4,7 @@ import {isImgComponent, isTextComponent} from "../../LeftSider";
 import {Text,Img} from "./CmpDetail";
 import classNames from "classnames";
 import {pick,omit} from "lodash"
-import { setCmpSelected,setCmpsSelected,setAllCmpsSelected } from "../../../../store/editStore";
+import { setCmpSelected,setCmpsSelected } from "../../../../store/editStore";
 import { memo } from "react";
 interface ICmpProps {
   cmp:ICmpWithKey,
@@ -40,9 +40,13 @@ const Cmp = memo((props: ICmpProps) => {
   return (
     <div
       className={classNames(styles.main, isSelected && "selectedBorder")}
-      style={outerStyle}
+      style={{
+        ...outerStyle,
+        transform,
+        zIndex: isSelected ? 9999 : index,
+      }}
       onClick={setSelected}>
-      <div className={styles.inner} style={{...innerStyle, zIndex: index}}>
+      <div className={styles.inner} style={{...innerStyle}}>
         {cmp.type === isTextComponent && <Text {...cmp} />}
         {cmp.type === isImgComponent && <Img {...cmp} />}
       </div>
