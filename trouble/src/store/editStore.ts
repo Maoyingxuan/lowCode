@@ -213,3 +213,9 @@ export const selectedCmpIndexSelector = (store: IEditStore): number => {
   const selectedCmpIndex = Array.from(store.assembly)[0];
   return selectedCmpIndex === undefined ? -1 : selectedCmpIndex;
 };
+
+export const recordCanvasChangeHistory_2 = () => {
+  useEditStore.setState((draft) => {
+    recordCanvasChangeHistory(draft);
+  });
+};

@@ -1,6 +1,7 @@
 import useEditStore,{updateAssemblyCmpsByDistance,
   updateSelectedCmpAttr,
   updateSelectedCmpStyle,
+  recordCanvasChangeHistory_2
 } from "../../../../store/editStore";
 import styles from "./index.module.less";
 import {throttle} from "lodash"
@@ -41,6 +42,7 @@ export default function EditBox() {
     startY = y;
   },50)
   const up = () => {
+    recordCanvasChangeHistory_2()
     document.removeEventListener("mousemove", move);
     document.removeEventListener("mouseup", up);
   };

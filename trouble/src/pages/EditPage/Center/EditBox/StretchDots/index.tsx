@@ -1,5 +1,5 @@
 import styles from './index.module.less'
-import {updateAssemblyCmpsByDistance} from "../../../../../store/editStore"
+import {updateAssemblyCmpsByDistance,recordCanvasChangeHistory_2} from "../../../../../store/editStore"
 import {throttle} from "lodash"
 
 interface IStretchProps {
@@ -57,6 +57,7 @@ export default function StretchDots(props: IStretchProps){
     }, 50);
 
     const up = () => {
+      recordCanvasChangeHistory_2()
       document.removeEventListener("mousemove", move);
       document.removeEventListener("mouseup", up);
     };

@@ -67,7 +67,6 @@ export default function Header() {
             styles.icon
           )}></span>
         <span className={styles.txt}>上一步</span>
-        <span className={styles.shortKey}>CMD+Z</span>
       </div>
 
       <div className={classNames(styles.item)} onClick={goNextCanvasHistory}>
@@ -78,7 +77,6 @@ export default function Header() {
           )}
           style={{transform: `rotateY{180}deg`}}></span>
         <span className={styles.txt}>下一步 </span>
-        <span className={styles.shortKey}>CMD+Shift+Z</span>
       </div>
 
       <div className={classNames(styles.item)} onClick={emptyCanvas}>
