@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import {delSelectedCmps} from "../../../../store/editStore";
+import {addCmp, delSelectedCmps,addZIndex,subZIndex,topZIndex,bottomZIndex} from "../../../../store/editStore";
 import styles from "./index.module.less";
 import {Style} from "../../../../store/editStoreType";
 
@@ -20,10 +20,10 @@ export default function Menu({
         <li onClick={delSelectedCmps}>删除组件</li>
         {assemblySize === 1 && (
           <>
-            <li>上移一层</li>
-            <li>下移一层</li>
-            <li>置顶</li>
-            <li>置底</li>
+            <li onClick={addZIndex}>上移一层</li>
+            <li onClick={subZIndex}>下移一层</li>
+            <li onClick={topZIndex}>置顶</li>
+            <li onClick={bottomZIndex}>置底</li>
           </>
         )}
       </ul>

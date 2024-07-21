@@ -230,3 +230,75 @@ export const recordCanvasChangeHistory_2 = () => {
     recordCanvasChangeHistory(draft);
   });
 };
+
+export const topZIndex = () =>{
+  useEditStore.setState(draft=>{
+    // console.log(draft.canvas.cmps);
+    const cmps = draft.canvas.cmps
+    const selectedIndex = selectedCmpIndexSelector(draft)
+    if (selectedIndex === cmps.length - 1) {
+      return;
+    }
+    draft.canvas.cmps = cmps
+      .slice(0, selectedIndex)
+      .concat(cmps.slice(selectedIndex + 1))
+      .concat(cmps[selectedIndex]);
+
+    draft.assembly = new Set([cmps.length - 1]);
+
+    recordCanvasChangeHistory(draft);
+  })
+}
+
+export const bottomZIndex = () =>{
+  useEditStore.setState((draft) => {
+    const cmps = draft.canvas.cmps;
+    const selectedIndex = selectedCmpIndexSelector(draft);
+    if (selectedIndex === 0) {
+      return;
+    }
+    draft.canvas.cmps = [cmps[selectedIndex]]
+      .concat(cmps.slice(0, selectedIndex))
+      .concat(cmps.slice(selectedIndex + 1));
+
+    draft.assembly = new Set([0]);
+
+    recordCanvasChangeHistory(draft);
+  });
+}
+
+export const addZIndex = () =>{
+  useEditStore.setState((draft) => {
+    const cmps = draft.canvas.cmps;
+    const selectedIndex = selectedCmpIndexSelector(draft)
+    if (selectedIndex === cmps.length - 1) {
+      return;
+    }
+    [draft.canvas.cmps[selectedIndex], draft.canvas.cmps[selectedIndex + 1]] = [
+      draft.canvas.cmps[selectedIndex + 1],
+      draft.canvas.cmps[selectedIndex],
+    ];
+
+    draft.assembly = new Set([selectedIndex + 1])
+
+    recordCanvasChangeHistory(draft)
+  });
+}
+
+export const subZIndex = () =>{
+  useEditStore.setState((draft) => {
+    // const cmps = draft.canvas.cmps;
+    const selectedIndex = selectedCmpIndexSelector(draft);
+    if (selectedIndex === 0) {
+      return;
+    }
+    [draft.canvas.cmps[selectedIndex], draft.canvas.cmps[selectedIndex - 1]] = [
+      draft.canvas.cmps[selectedIndex - 1],
+      draft.canvas.cmps[selectedIndex],
+    ];
+
+    draft.assembly = new Set([selectedIndex - 1]);
+
+    recordCanvasChangeHistory(draft);
+  });
+}

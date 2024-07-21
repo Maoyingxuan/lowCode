@@ -43,7 +43,8 @@ const Cmp = memo((props: ICmpProps) => {
       style={{
         ...outerStyle,
         transform,
-        zIndex: isSelected ? 9999 : index,
+        // zIndex: isSelected ? 9999 : index,
+        zIndex:index
       }}
       onClick={setSelected}>
       <div className={styles.inner} style={{...innerStyle}}>
