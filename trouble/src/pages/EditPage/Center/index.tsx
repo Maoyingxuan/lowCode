@@ -1,11 +1,12 @@
 
 import styles from "./index.module.less";
 import Canvas from "./Canvas";
-import useEditStore,{ setAllCmpsSelected,setCmpSelected } from "../../../store/editStore";
+import useEditStore,{ setAllCmpsSelected,setCmpSelected,canvasStyleSelector } from "../../../store/editStore";
 import Zoom from "./Zoom";
 import useZoomStore from "../../../store/zoomStore";
 export default function Center() {
-  const canvas = useEditStore((state) => state.canvas);
+  
+  const canvasStyle = useEditStore(canvasStyleSelector);
   const {zoom, zoomIn, zoomOut} = useZoomStore();
   const keyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if ((e.target as Element).nodeName === "TEXTAREA") {
@@ -16,7 +17,7 @@ export default function Center() {
       id="center"
       className={styles.main}
       style={{
-        minHeight: (zoom / 100) * canvas.style.height + 100,
+        minHeight: (zoom / 100) * canvasStyle.height + 100,
       }}
       tabIndex={0}
       onClick={(e: React.MouseEvent) => {

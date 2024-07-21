@@ -21,7 +21,7 @@ export default function RequireAuth(){
         </div>
       )}
             <Header style={headerStyle}>
-                {/* <Login></Login> */}
+                <Login></Login>
             </Header>
             <Outlet/>
         </Layout>

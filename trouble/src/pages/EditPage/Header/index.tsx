@@ -6,15 +6,13 @@ import {clearCanvas, saveCanvas} from "../../..//store/editStore";
 import {message} from "antd";
 import { goNextCanvasHistory,goPrevCanvasHistory } from "../../../store/historySlice";
 export default function Header() {
-  const id = useCanvasId();
-  const type = useCanvasType();
   const navigate = useNavigate();
 
   //页面的新增与编辑更新
   const save = () => {
-    saveCanvas(id, type, (_id) => {
+    saveCanvas((_id, isNew) => {
       message.success("保存成功");
-      if (id === null) {
+      if (isNew) {
         // 新增
         navigate(`?id=${_id}`);
       }
@@ -22,16 +20,16 @@ export default function Header() {
   };
 
   const saveAndPreview = () => {
-    saveCanvas(id, type, (_id) => {
+    saveCanvas((_id, isNew) => {
       message.success("保存成功");
 
-      if (id === null) {
+      if (isNew) {
         // 新增
         navigate(`?id=${_id}`);
       }
 
       // 跳转生成器项目页
-      window.open("http://builder.codebus.tech?id=" + (id === null ? _id : id));
+      window.open("http://builder.codebus.tech?id=" + _id);
     });
   };
 

@@ -14,7 +14,7 @@ export default function Canvas() {
       state.canvas,
       state.assembly,
     ]);
-    const {cmps,style} = canvas;
+    const {cmps,style} = canvas.content;
     const id = useCanvasId();
     console.log(
       "%c [ id ]-12",
@@ -29,7 +29,7 @@ export default function Canvas() {
       }
     }, []);
   
-    const onDrop=(e:any)=>{
+    const onDrop=(e:React.DragEvent<HTMLDivElement>)=>{
       // 读取被拖拽组件信息
       const dragCmp = JSON.parse(e.dataTransfer.getData("drag-cmp"))
       // 读取用户松手位置
@@ -54,7 +54,7 @@ export default function Canvas() {
     <div
       id="canvas"
       className={styles.main}
-      style={{...canvas.style,
+      style={{...style,
         backgroundImage: `url(${style.backgroundImage})`,
         transform:`scale(${zoom/100})`
       }}

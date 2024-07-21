@@ -2,11 +2,16 @@
 import React from "react";
 export type Style = any
 export interface ICanvas {
-    title: string;
-    style: Style;
-    cmps: Array<ICmpWithKey>;
-  }
-  
+  id: null | number;
+  title: string;
+  type: "content" | "template"; // 页面还是模板页
+  content: IContent;
+}
+
+export interface IContent {
+  style: Style;
+  cmps: Array<ICmpWithKey>;
+}
   export interface ICmp {
     type: number;
     style: Style;
