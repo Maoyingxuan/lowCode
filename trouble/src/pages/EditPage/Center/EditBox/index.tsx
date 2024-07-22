@@ -11,6 +11,7 @@ import {isTextComponent} from "../../LeftSider";
 import {useEffect,useState} from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import Menu from "../Menu";
+import AlignLines from "./AlignLines";
 export default function EditBox() {
   const zoom = useZoomStore((state) => state.zoom);
   const [canvas, assembly] = useEditStore((state) => [
@@ -19,7 +20,7 @@ export default function EditBox() {
   ]);
     
     const selectedIndex = Array.from(assembly)[0];
-    const {cmps} = canvas.content;
+    const {cmps, style:canvasStyle} = canvas.content;
     useEffect(() => {
       setShowMenu(false);
     } , [selectedIndex]);
@@ -44,12 +45,16 @@ export default function EditBox() {
     disX = disX * (100 / zoom);
     disY = disY * (100 / zoom);
 
-    updateAssemblyCmpsByDistance({top: disY, left: disX});
+    updateAssemblyCmpsByDistance({top: disY, left: disX},true);
 
     startX = x;
     startY = y;
   },50)
   const up = () => {
+          // 隐藏吸附线
+    document.querySelectorAll(".alignLine").forEach((element) => {
+      (element as HTMLElement).style.display = "none";
+    });
     recordCanvasChangeHistory_2()
     document.removeEventListener("mousemove", move);
     document.removeEventListener("mouseup", up);
@@ -84,6 +89,8 @@ export default function EditBox() {
   left -= 2;
 
   return (
+    <>
+    {size === 1 && <AlignLines canvasStyle={canvasStyle} />}
     <div
       className={styles.main}
       style={{
@@ -135,5 +142,6 @@ export default function EditBox() {
 
         <StretchDots zoom={zoom} style={{width,height}}></StretchDots>
       </div>
+      </>
   );
 }
