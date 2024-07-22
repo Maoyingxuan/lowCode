@@ -248,6 +248,9 @@ export const setCmpSelected = (index: number) => {
       // 显示参考线
       domLine.style.display = "block";
     }
+    if(distance>=showDiff){
+      domLine.style.display = "none";
+    }
     if (distance < adjustDiff) {
       // 自动吸附
       align();
