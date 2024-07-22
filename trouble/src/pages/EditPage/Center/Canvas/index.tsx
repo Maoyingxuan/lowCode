@@ -7,6 +7,7 @@ import { useCanvasId } from "../../../../store/hooks";
 import {useEffect} from "react";
 import EditBox from "../EditBox";
 import useZoomStore from "../../../../store/zoomStore";
+import { ICmpWithKey } from "../../../../store/editStoreType";
 export default function Canvas() {
     console.log("canvas render")
     const zoom = useZoomStore(state=>state.zoom)
@@ -31,8 +32,12 @@ export default function Canvas() {
   
     const onDrop=(e:React.DragEvent<HTMLDivElement>)=>{
       // 读取被拖拽组件信息
-      const dragCmp = JSON.parse(e.dataTransfer.getData("drag-cmp"))
-      // 读取用户松手位置
+      let dragCmp: any = e.dataTransfer.getData("drag-cmp");
+      if (!dragCmp) {
+        return;
+      }
+      dragCmp = JSON.parse(dragCmp) as ICmpWithKey;   // 读取用户松手位置
+      //读取用户松手位置
       const endX = e.pageX
       const endY = e.pageY
       const canvasDomPos={
@@ -47,7 +52,7 @@ export default function Canvas() {
       // console.log("1")
       addCmp(dragCmp)
     }
-    const allowDraop = (e:any) => {
+    const allowDrop = (e:React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
     };
   return (
@@ -59,7 +64,7 @@ export default function Canvas() {
         transform:`scale(${zoom/100})`
       }}
       onDrop={onDrop}
-      onDragOver={allowDraop}>
+      onDragOver={allowDrop}>
         <EditBox></EditBox>
               {cmps.map((item, index) => (
         <Cmp key={item.key} cmp={item} index={index} isSelected={assembly.has(index)}></Cmp>
