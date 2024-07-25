@@ -1,4 +1,4 @@
-import { Modal,message,Button, Card, Divider, Space, Table } from "antd";
+import { Modal,message,Button, Card, Divider, Space, Table ,Image} from "antd";
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 import Axios from "../../request/axios";
@@ -10,6 +10,7 @@ interface ListItem {
     type:string; //页面
     title:string;
     content:string;
+    thumbnail: {full: string};
 }
 export default function ListPage(){
     const [list,setList] = useState([])
@@ -66,6 +67,16 @@ export default function ListPage(){
             return <div className="red">{typeDesc}</div>;
           },
         },
+
+    {
+      title: "显示",
+      key: "thumbnail",
+      render: (item: ListItem) => {
+        return (
+          <Image src={item.thumbnail.full} alt={item.title} height={150} />
+        );
+      },
+    },
     
         {
           title: "动作",
