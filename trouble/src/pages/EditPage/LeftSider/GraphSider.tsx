@@ -1,6 +1,6 @@
 import {defaultComponentStyle} from "../../../utils/const";
 import {addCmp} from "../../../store/editStore";
-import {isGraphComponent} from ".";
+import {isGraphComponent} from "../../../utils/const";
 import leftSideStyles from "./leftSide.module.less";
 const defaultStyle = {
     ...defaultComponentStyle,

@@ -1,7 +1,7 @@
 import {Route,
   RouterProvider,
   createBrowserRouter,
-  createRoutesFromElements,s} from "react-router-dom"
+  createRoutesFromElements} from "react-router-dom"
 import EditPage from "./pages/EditPage"
 import ListPage from "./pages/ListPage"
 import RequireAuth from "./components/RequireAuth"

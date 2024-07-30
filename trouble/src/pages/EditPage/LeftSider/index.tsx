@@ -4,9 +4,12 @@ import styles from "./index.module.less"
 import TextSider from "./TextSider";
 import GraphSider from "./GraphSider";
 import ImgSider from "./ImgSider";
-export const isTextComponent = 1 
-export const isImgComponent = 2
-export const isGraphComponent = 3 
+import {
+  isTextComponent,
+  isImgComponent,
+  isGraphComponent,
+} from "../../../utils/const";
+
 const LeftSider = memo(() => {
     const [showSide,setShowSide] = useState(0)
     const _setShowSide = (which: number | undefined) => {

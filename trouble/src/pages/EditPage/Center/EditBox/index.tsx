@@ -7,7 +7,7 @@ import styles from "./index.module.less";
 import {throttle} from "lodash"
 import useZoomStore from "../../../../store/zoomStore";
 import StretchDots from "./StretchDots";
-import {isTextComponent} from "../../LeftSider";
+import {isTextComponent} from "../../../../utils/const";
 import {useEffect,useState} from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import Menu from "../Menu";

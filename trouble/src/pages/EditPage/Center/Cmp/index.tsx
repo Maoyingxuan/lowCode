@@ -1,6 +1,6 @@
 import { ICmpWithKey } from "../../../../store/editStoreType";
 import styles from "./index.module.less";
-import {isImgComponent, isTextComponent} from "../../LeftSider";
+import {isImgComponent, isTextComponent} from "../../../../utils/const";
 import {Text,Img} from "./CmpDetail";
 import classNames from "classnames";
 import {pick,omit} from "lodash"

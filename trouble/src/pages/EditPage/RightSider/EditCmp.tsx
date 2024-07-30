@@ -6,7 +6,7 @@ import {
   updateSelectedCmpStyle,
 } from "../../../store/editStore";
 import type {ICmpWithKey, Style} from "../../../store/editStoreType";
-import {isImgComponent, isTextComponent} from "../LeftSider";
+import {isImgComponent, isTextComponent} from "../../../utils/const";
 import styles from "./edit.module.less";
 
 export default function EditCmp({selectedCmp}: {selectedCmp: ICmpWithKey}) {

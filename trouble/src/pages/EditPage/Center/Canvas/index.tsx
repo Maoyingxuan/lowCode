@@ -1,5 +1,5 @@
 // import {_Style} from "src/store/editStoreTypes";
-import {addCmp,clearCanvas,fetchCanvas} from "../../../../store/editStore";
+import {addCmp,initCanvas,fetchCanvas} from "../../../../store/editStore";
 import useEditStore from "../../../../store/editStore";
 import styles from "./index.module.less";
 import Cmp from "../Cmp";
@@ -25,9 +25,11 @@ export default function Canvas() {
     useEffect(() => {
       if (id) {
         fetchCanvas(id);
-      }else{
-        clearCanvas()
       }
+      return () => {
+        // 退出页面之前，初始化数据。否则下次再次进入页面，上次数据会被再次利用。
+        initCanvas();
+      };
     }, []);
   
     const onDrop=(e:React.DragEvent<HTMLDivElement>)=>{
