@@ -87,7 +87,7 @@ export default function ListPage(){
               <Space size="middle">
                 <a
                   target="_blank"
-                  href={"https://builder-lemon.vercel.app/?id=" + id}>
+                  href={"http://localhost:3000/?id=" + id}>
                   线上查看（切移动端）
                 </a>
     
