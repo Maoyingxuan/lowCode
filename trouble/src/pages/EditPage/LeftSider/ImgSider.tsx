@@ -7,7 +7,7 @@ const defaultStyle = {
   ...defaultComponentStyle,
 };
 
-const url = "http://trouble.codebus.tech/";
+const url = "http://template.codebus.tech";
 
 const settings = [
   {

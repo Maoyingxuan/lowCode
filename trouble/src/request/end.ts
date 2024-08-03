@@ -1,6 +1,6 @@
 import axios from "./axios";
 // export const end = "//www.bubucuo.cn";
-export const end = "http://trouble.codebus.tech/"; 
+export const end = "http://template.codebus.tech"; 
 
 // 注册 post
 export const registerEnd = end + "/api/register";
@@ -21,5 +21,5 @@ export const deleteCanvasByIdEnd = end + "/api/web/content/delete";
 // 画布列表
 export const getCanvasListEnd = end + "/api/web/content/list?pageSize=1000";
 export const getTemplateListEnd = end + "/api/web/template/list?pageSize=1000";
-
 export const myAxios = axios;
+export const publishEnd = end + "/api/web/content/publish";

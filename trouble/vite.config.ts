@@ -6,7 +6,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   server: {
     proxy: {
-      "/api": "http://trouble.codebus.tech/",
+      "/api": "http://template.codebus.tech",
       // "/api": "http://template.codebus.tech",
       "/static": "http://template.codebus.tech",
     },

@@ -2,7 +2,7 @@ import { Modal,message,Button, Card, Divider, Space, Table ,Image} from "antd";
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 import Axios from "../../request/axios";
-import {deleteCanvasByIdEnd, getCanvasListEnd} from "../../request/end";
+import {deleteCanvasByIdEnd, getCanvasListEnd,publishEnd} from "../../request/end";
 import useUserStore from "../../store/userStore";
 
 interface ListItem {
@@ -11,6 +11,7 @@ interface ListItem {
     title:string;
     content:string;
     thumbnail: {full: string};
+    publish: boolean;
 }
 export default function ListPage(){
     const [list,setList] = useState([])
@@ -34,7 +35,15 @@ export default function ListPage(){
         },
       });
     };
-  
+    const publish = async (id: number) => {
+      const res = await Axios.post(publishEnd, {
+        id,
+      });
+      if (res) {
+        message.success("发布成功");
+        fresh();
+      }
+    };
     useEffect(()=>{
         fresh();
         console.log("fresh")
@@ -85,13 +94,19 @@ export default function ListPage(){
             const {id} = item;
             return (
               <Space size="middle">
-                <a
+              {
+                item.publish === false ? (
+                  <Button onClick={() => publish(id)}>发布</Button>
+                ): (
+                                  <a
                   target="_blank"
                   href={"http://localhost:3000/?id=" + id}>
                   线上查看（切移动端）
-                </a>
-    
-                <Link to={editUrl(item)}>编辑</Link>
+                </a> 
+                )
+              }
+   
+                {/* <Link to={editUrl(item)}>编辑</Link> */}
                 <Button onClick={() => delConfirm(id)}>删除</Button>
               </Space>
             );
