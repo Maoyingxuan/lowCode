@@ -3,6 +3,7 @@ import ClientOnly from "../components/ClientOnly";
 import Canvas from "../components/Canvas";
 
 export default function Home({ data }: any) {
+  // console.log('这是data:'+data)
   return (
     <>
       <Head>
@@ -36,7 +37,7 @@ export async function getServerSideProps({ query }: { query: { id: string } }) {
   );
 
   const data = await res.json();
-
+  console.log(data)
   return {
     props: {
       data: data.result.publish && !data.result.isDelete && data.result,
