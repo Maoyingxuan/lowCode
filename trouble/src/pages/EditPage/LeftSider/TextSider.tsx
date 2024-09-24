@@ -19,7 +19,7 @@ const defaultStyle = {
 
 const settings = [
   {
-    value: "标题",
+    value: "双击编辑标题",
     style: {
       ...defaultStyle,
       fontSize: 28,
@@ -28,7 +28,7 @@ const settings = [
     },
   },
   {
-    value: "正文",
+    value: "双击编辑正文",
     style: defaultStyle,
   },
 ];

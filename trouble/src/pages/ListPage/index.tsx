@@ -50,7 +50,7 @@ export default function ListPage(){
     },[isLogin])
 
     
-    const editUrl =(item:ListItem) => '/?id=$(item.id}&type=$()item.type';
+    const editUrl =(item:ListItem) => `/?id=${item.id}&type=${item.type}`;
     const columns = [
         {
           title: "id",

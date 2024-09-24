@@ -49,7 +49,7 @@ export const initCanvas = () => {
     draft.assembly = new Set();
 
     // 历史
-    (draft.canvasChangeHistory = [
+    draft.canvasChangeHistory = [
       {
         canvas: {
           id: null,
@@ -59,7 +59,7 @@ export const initCanvas = () => {
         },
         assembly: new Set(),
       },
-    ]),
+    ],
       (draft.canvasChangeHistoryIndex = 0);
   });
 
@@ -97,7 +97,7 @@ export const initCanvas = () => {
       content: JSON.stringify(canvas.content),
     });
   
-    successCallback(res?.id, isNew, res);
+    successCallback(res?.id, isNew,res);
   
     useEditStore.setState((draft) => {
       if (isNew) {
