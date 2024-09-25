@@ -196,37 +196,48 @@ export const setCmpSelected = (index: number) => {
       cmps: [],
     };
   }
-  
-  export const updateAssemblyCmpsByDistance = (newStyle: Style
-    ,autoAdjustment?:boolean
-  ) => {
-    useEditStore.setState((draft) => {
-      draft.assembly.forEach((index) => {
-        const selectedcmp = {...draft.canvas.content.cmps[index]};
-        let invalid = false
-        for (const key in newStyle) {
-          if (
-            (key === "width" || key === "height") &&
-            selectedcmp.style[key] + newStyle[key] < 2
-          ) {
-            invalid = true;
-            break;
-          }
-          selectedcmp.style[key] += newStyle[key];
-        }
-              // 检查自动调整
-      if (autoAdjustment) {
-        // 对齐画布或者组件
-        // 画布
-        autoAlignToCanvas(canvasStyleSelector(draft), selectedcmp);
+  // ! 移动
+// 根据改变的量来修改
+export const updateAssemblyCmpsByDistance = (newStyle: Style) => {
+  useEditStore.setState((draft) => {
+    draft.assembly.forEach((index) => {
+      const cmp = draft.canvas.content.cmps[index];
+      for (const key in newStyle) {
+        cmp.style[key] += newStyle[key];
       }
-        if(!invalid){
-          draft.canvas.content.cmps[index] = selectedcmp
-        }
-        draft.hasSavedCanvas = false;
-      });
     });
-  };
+  });
+};
+  // export const updateAssemblyCmpsByDistance = (newStyle: Style
+  //   ,autoAdjustment?:boolean
+  // ) => {
+  //   useEditStore.setState((draft) => {
+  //     draft.assembly.forEach((index) => {
+  //       const selectedcmp = {...draft.canvas.content.cmps[index]};
+  //       let invalid = false
+  //       for (const key in newStyle) {
+  //         if (
+  //           (key === "width" || key === "height") &&
+  //           selectedcmp.style[key] + newStyle[key] < 2
+  //         ) {
+  //           invalid = true;
+  //           break;
+  //         }
+  //         selectedcmp.style[key] += newStyle[key];
+  //       }
+  //             // 检查自动调整
+  //     if (autoAdjustment) {
+  //       // 对齐画布或者组件
+  //       // 画布
+  //       autoAlignToCanvas(canvasStyleSelector(draft), selectedcmp);
+  //     }
+  //       if(!invalid){
+  //         draft.canvas.content.cmps[index] = selectedcmp
+  //       }
+  //       draft.hasSavedCanvas = false;
+  //     });
+  //   });
+  // };
   function autoAlignToCanvas(targetStyle: Style, selectedCmp: ICmpWithKey) {
     const selectedCmpStyle = selectedCmp.style;
 
@@ -334,7 +345,7 @@ export const updateSelectedCmpStyle = (
 export const updateSelectedCmpAttr = (name: string, value: string) => {
   useEditStore.setState((draft: any) => {
     const selectedIndex = selectedCmpIndexSelector(draft);
-    draft.canvas.cmps[selectedIndex][name] = value;
+    draft.canvas.content.cmps[selectedIndex][name] = value;
     draft.hasSavedCanvas = false;
     recordCanvasChangeHistory(draft);
   });

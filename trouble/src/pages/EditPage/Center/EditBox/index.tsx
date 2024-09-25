@@ -13,6 +13,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import Menu from "../Menu";
 import AlignLines from "./AlignLines";
 import Rotate from "./Rotate";
+import { flushSync } from "react-dom";
 export default function EditBox() {
   const zoom = useZoomStore((state) => state.zoom);
   const [canvas, assembly] = useEditStore((state) => [
@@ -33,9 +34,9 @@ export default function EditBox() {
     const [showMenu, setShowMenu] = useState(false);
 
   const onMouseDownOfCmp =(e:React.MouseEvent<HTMLDivElement>) =>{
-    if (textareaFocused) {
-      return;
-    }
+    // if (textareaFocused) {
+    //   return;
+    // }
     let startX = e.pageX;
     let startY = e.pageY;
   
@@ -49,8 +50,8 @@ export default function EditBox() {
     disX = disX * (100 / zoom);
     disY = disY * (100 / zoom);
 
-    updateAssemblyCmpsByDistance({top: disY, left: disX},true);
-
+    // updateAssemblyCmpsByDistance({top: disY, left: disX},true);
+    updateAssemblyCmpsByDistance({top: disY, left: disX});
     startX = x;
     startY = y;
   },50)
@@ -132,10 +133,11 @@ export default function EditBox() {
           value={selectedCmp.value}
           style={{
             ...selectedCmp.style,
-            top: 0,
-            left: 0,
+            top: 2,
+            left: 2,
           }}
           onChange={(e) => {
+            console.log('change');
             const newValue = e.target.value;
             updateSelectedCmpAttr("value", newValue);
           }}

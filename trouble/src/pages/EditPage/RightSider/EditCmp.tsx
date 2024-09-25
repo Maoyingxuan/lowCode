@@ -192,69 +192,6 @@ export default function EditCmp({selectedCmp}: {selectedCmp: ICmpWithKey}) {
         </Item>
       )}
 
-      {style.borderRadius !== undefined && (
-        <Item label="圆角: ">
-          <input
-            className={styles.itemRight}
-            type="text"
-            value={style.borderRadius}
-            onChange={(e) =>
-              handleStyleChange(e, {
-                name: "borderRadius",
-                value: e.target.value,
-              })
-            }
-          />
-        </Item>
-      )}
-
-      <Item label="边框样式: ">
-        <select
-          className={styles.itemRight}
-          value={style.borderStyle}
-          onChange={(e) => {
-            handleStyleChange(e, {
-              name: "borderStyle",
-              value: e.target.value,
-            });
-          }}>
-          <option value="none">none</option>
-          <option value="dashed">dashed</option>
-          <option value="dotted">dotted</option>
-          <option value="double">double</option>
-          <option value="groove">groove</option>
-          <option value="hidden">hidden</option>
-          <option value="solid">solid</option>
-        </select>
-      </Item>
-
-      <Item label="边框宽度: ">
-        <input
-          className={styles.itemRight}
-          type="number"
-          value={style.borderWidth}
-          onChange={(e) =>
-            handleStyleChange(e, {
-              name: "borderWidth",
-              value: parseInt(e.target.value) - 0,
-            })
-          }
-        />
-      </Item>
-
-      <Item label="边框颜色: ">
-        <InputColor
-          className={styles.itemRight}
-          color={style.borderColor || "#ffffff00"}
-          onChangeComplete={(e: any) =>
-            handleStyleChange(null, {
-              name: "borderColor",
-              value: `rgba(${Object.values(e.rgb).join(",")})`,
-            })
-          }
-        />
-      </Item>
-
       {style.color !== undefined && (
         <Item label="字体颜色: ">
           <InputColor
