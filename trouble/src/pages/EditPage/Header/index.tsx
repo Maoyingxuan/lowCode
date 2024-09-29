@@ -78,11 +78,11 @@ export default function Header() {
         <span className={styles.txt}>保存</span>
       </div>
 
-      <div className={classNames(styles.item)} onClick={saveAndPreview}>
+      {/* <div className={classNames(styles.item)} onClick={saveAndPreview}>
         <span
           className={classNames(styles.icon)}></span>
         <span className={styles.txt}>保存并预览</span>
-      </div>
+      </div> */}
 
       <div className={classNames(styles.item)} onClick={goPrevCanvasHistory}>
         <span

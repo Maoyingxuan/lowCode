@@ -50,8 +50,8 @@ export default function EditBox() {
     disX = disX * (100 / zoom);
     disY = disY * (100 / zoom);
 
-    // updateAssemblyCmpsByDistance({top: disY, left: disX},true);
-    updateAssemblyCmpsByDistance({top: disY, left: disX});
+    updateAssemblyCmpsByDistance({top: disY, left: disX},true);
+    // updateAssemblyCmpsByDistance({top: disY, left: disX});
     startX = x;
     startY = y;
   },50)

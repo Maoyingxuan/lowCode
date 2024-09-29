@@ -2,17 +2,19 @@ import { Modal,message,Button, Card, Divider, Space, Table ,Image} from "antd";
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 import Axios from "../../request/axios";
-import {deleteCanvasByIdEnd, getCanvasListEnd,publishEnd} from "../../request/end";
+import {saveCanvasEnd,deleteCanvasByIdEnd, getCanvasListEnd,publishEnd} from "../../request/end";
 import useUserStore from "../../store/userStore";
 
 interface ListItem {
     id:number;
-    type:string; //页面
+    // type:string; //页面
+    type:"content"|"template"
     title:string;
     content:string;
     thumbnail: {full: string};
     publish: boolean;
 }
+const pagination = {pageSize: 9999, current: 1};
 export default function ListPage(){
     const [list,setList] = useState([])
     const isLogin = useUserStore((state)=>state.isLogin)
@@ -20,7 +22,11 @@ export default function ListPage(){
       if (!isLogin) {
         return;
       }
-      const res: any = await Axios.get(getCanvasListEnd);
+      // const res: any = await Axios.get(getCanvasListEnd);
+      const res: any = await Axios.get(
+        getCanvasListEnd +
+          `pageSize=${pagination.pageSize}&pageNo=${pagination.current}`
+      );
       let data = res?.content || [];
       setList(data);
     };
@@ -41,6 +47,31 @@ export default function ListPage(){
       });
       if (res) {
         message.success("发布成功");
+        fresh();
+      }
+    };
+    const saveItem = async (item: ListItem) => {
+      const res = await Axios.post(saveCanvasEnd, {
+        id: null,
+        type: item.type,
+        title: item.title + " 副本",
+        content: item.content,
+      });
+      if (res) {
+        message.success("复制成功");
+        fresh();
+      }
+    };
+    const saveAsTpl = async (item: ListItem) => {
+      const res = await Axios.post(saveCanvasEnd, {
+        id: null,
+        type: "template",
+        title: item.title + " 模板",
+        content: item.content,
+      });
+  
+      if (res) {
+        message.success("保存模板成功");
         fresh();
       }
     };
@@ -100,12 +131,17 @@ export default function ListPage(){
                 ): (
                                   <a
                   target="_blank"
-                  href={"http://localhost:3000/?id=" + id}>
+                  href={"http://builder.codebus.tech/?id=" + id}>
                   线上查看（切移动端）
                 </a> 
                 )
               }
-   
+            {/* 复制 */}
+            <Button onClick={() => saveItem(item)}>复制</Button>
+            {/* 页面可转为模板 */}
+            {item.type == "content" && (
+              <Button onClick={() => saveAsTpl(item)}>保存为模板</Button>
+            )}
                 {/* <Link to={editUrl(item)}>编辑</Link> */}
                 <Button onClick={() => delConfirm(id)}>删除</Button>
               </Space>
@@ -120,7 +156,8 @@ export default function ListPage(){
             <Divider></Divider>
             <Table columns={columns}
                 dataSource={list}
-                rowKey={(record:ListItem )=>record.id}></Table>
+                rowKey={(record:ListItem )=>record.id}
+                pagination={pagination}></Table>
         </Card>
     )
 }

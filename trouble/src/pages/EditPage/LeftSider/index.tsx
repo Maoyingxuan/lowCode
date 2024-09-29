@@ -4,14 +4,15 @@ import styles from "./index.module.less"
 import TextSider from "./TextSider";
 import GraphSider from "./GraphSider";
 import ImgSider from "./ImgSider";
+import TplSider from "./TplSider";
 import {
   isTextComponent,
   isImgComponent,
   isGraphComponent,
+  isTplComponent
 } from "../../../utils/const";
-
 const LeftSider = memo(() => {
-    const [showSide,setShowSide] = useState(0)
+    const [showSide,setShowSide] = useState(-1)
     const _setShowSide = (which: number | undefined) => {
         if (showSide === which) {
           setShowSide(0);
@@ -20,7 +21,7 @@ const LeftSider = memo(() => {
         }
       };
       useEffect(() => {
-        const cancelShow = () => setShowSide(0);
+        const cancelShow = () => setShowSide(-1);
         document.getElementById("center")?.addEventListener("click", cancelShow);
         return () => {
           document
@@ -31,6 +32,15 @@ const LeftSider = memo(() => {
       return (
         <div className={styles.main}>
           <ul className={styles.cmps}>
+          <li
+          className={classNames(
+            styles.cmp,
+            showSide === isTplComponent ? styles.selected : ""
+          )}
+          onClick={() => _setShowSide(isTplComponent)}>
+          <span className={styles.cmpText}>模板</span>
+        </li>
+
             <li
               className={classNames(
                 styles.cmp,
@@ -61,7 +71,7 @@ const LeftSider = memo(() => {
               <span className={styles.cmpText}>图形</span>
             </li>
           </ul>
-    
+          {showSide === isTplComponent && <TplSider />}
           {showSide === isTextComponent && <TextSider />}
           {showSide === isGraphComponent && <GraphSider />}
           {showSide === isImgComponent && <ImgSider />}

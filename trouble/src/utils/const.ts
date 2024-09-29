@@ -3,7 +3,7 @@ export const isTextComponent = 0b00000001; // 1
 export const isImgComponent = 0b00000010; // 2
 export const isGraphComponent = 0b00000011; // 3
 export const isGroupComponent = 0b00001000; // 8
-
+export const isTplComponent = 0b00000000;
 // 表单组件
 export const isFormComponent_Input = 0b10000000; //128
 export const isFormComponent_Button = 0b01000000; // 64
